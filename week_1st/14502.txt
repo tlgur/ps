@@ -1,0 +1,24 @@
+Brute :
+	input 받으면서 2면 위 아래 양옆 1로 막고(out of range 때문에 배열 크기 +2)
+	-> input 받기전 1이면 continue : 2면?
+		-> if 문
+		-> 일단 다 받고 dfs
+
+	DFS가 정석같은데, if로 해도 될거같은데?(사이즈가 작음)
+	
+	내가 벽을 세우는게 아니었구낭 ㅋㅋ
+	
+	DFS로 수정
+
+n, m 사이즈가 작으니 처음 인풋 받을 때, 2(바이러스)의 위치 queue로 저장
+	-> queue 돌리면서 bfs, 0 -> 2로 바뀌는 인덱스 저장
+	-> until queue.empty()
+
+int cnt -> 0의 개수 처음 받을 때 카운트, queue에 하나 저장될 때마다 -1 (Boundary Index 조심)
+
+
+아 ㅋㅋ 벽 3개를 세우는거구낭 ㅋㅋ
+
+Need : 안전영역이 최대가 되는 index 3개 순서쌍 
+
+brute + queue(bfs)
