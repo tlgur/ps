@@ -1,0 +1,70 @@
+Need : A에서 최소 1개, B에서 최소 1개를 골라서 T가 되는 경우의 수
+
+
+A합 dp
+B합 dp
+	-> T가 되는 경우의 수 for문
+	-> A합 dp * B합 dp
+: worst dp size = 2,000,000,000 용량 초과
+
+============
+
+그럼 dp 배열의 값이 0인 공간을 줄이면?(사이즈 축소)
+x배열의 합의 개수? (2^n?)
+
+nC1 + nC2 + nC3 + nC4 = 2^n - 1
+
+될거같애
+
+문제 : 	1. 값을 넣을때 탐색 어떻게?
+	2. T를 만족하기 위해 조합할때 탐색?
+	
+	시간 제한 2초라서 둘다 이진탐색으로 후려쳐도 될듯?
+	1 : 이진탐색 값 o -> value++ // x -> lower bound 뒤에 낑겨넣기(vector.inser(index, value);
+	2 : 사이즈가 큰쪽 for문 -> 다른쪽 값o -> cnt += 두쪽 vector value multiply
+
+	1할때 시간초과날거같음 (2^1000 - 1 번 탐색)
+
+=============
+
+	1. 사이즈 2,000,001 짜리 배열 마련 해놓고, A, B 배열 값 대입
+	2. T 경우의 수 for 문 돌리면서 
+	
+	A의 합 배열, B합 배열 구할 수 없음 ( 2 ^ 1000 - 1)
+
+=============
+	
+	1 3 1 2
+	4 2 3 4 5 3
+	5 6 4 6
+	7
+1 2 3 4 5 6 7
+2 2 3 3 2 2 1
+
+1 // 3 4 // 2 4 5 1 // 3 5 6 4 6 7 3 2 -> 대입 받을 때 이렇게 구하고, 정렬
+1 1 2 2 3 3 3 4 4 4 5 5 6 6 7
+이러고 T for 문 돌리면서
+upper_bound - lower_bound 해서 개수 구하고 곱해서 더해주면 될거같은데 사이즈가 너무큼ㅋㅋ(2 ^ 1000 - 1)
+
+1 1 2 3 4 4 5
+
+이진 탐색으로 넣으면 될거같은데?
+
+2번 
+1.
+check(x) == true, When x 가 target 보다 작을때
+	== false, When x 가 target 보다 크거나 같을때
+check(init_left = -1) == true
+check(init_right) == false
+
+2.
+check(x) == true, When x가 target 보다 클때
+	== false, When x가 target 보다 작거나 같을때
+check(init_left) == false
+check(init_right = size()) == true
+
+1_left + 1 이 target이 아니면 return 0;
+2_right - 1 이 target이 아니면 return 0;
+else return 2_right - 1_left - 1
+
+

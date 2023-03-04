@@ -1,0 +1,29 @@
+Brute : 이중 for문
+
+
+
+m = 3
+1 2 3 4 5 6 7 8 9 10
+
+제한 시간 : 2초 -> 아마 기준점은 for문으로 돌려도 충분한 시간일것
+
+first : for문
+second : 이진탐색
+
+
+-5 -4 -3 -2 -1 0 1 2 3 4 5
+   1 2 3 4 5 6 7 8 9 10
+
+check(initLeft) == check(sIndex) == F or 0
+
+check(initRight) == check(n - 1) == T
+
+check(mid)
+ == t : gap >= m
+ == f : gap < m
+
+**같은 수일 수도 있다
+
+오답 후 수정한 디테일
+1. m이 0 일때 (check(initLeft)가 true일때) -> if(!m)
+2. 기준 수가 충분히 뒤에 있어 m을 만족하는 경우의 수가 없을 때 (check(initRight)가 false 일때) -> 반복문 이전 if(gap < m)
