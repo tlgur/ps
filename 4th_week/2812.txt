@@ -1,0 +1,40 @@
+ - 모든 경우의 수의 자리수는 동일 ( 이 수는 0으로 시작하지 않는다)
+
+digit 중 작은 순서대로 k개를 지우면 되나?
+
+n = 5
+k = 2
+
+49911
+Answer : 991
+Output : 499
+
+digit 마다 k개씩 모아서 최대값 넣으면 될듯
+(가장 왼쪽 digit이 k를 다 쓰는 한이 있어도 1이라도 올라가는게 최대값)
+Solv	1 : 첫번째 인덱스부터 순차 진행 i
+	2 : i ~ i + k 까지 순차진행하면서 최대값과 인덱스 기록 
+	2. 1 최대값은 스택에 집어넣음(큐가 나을거같은데? 큐로 진행)
+	2. 2 최대값 인덱스는 i에 넣고 1번부터 다시
+
+	*0은 고려안해도될듯
+시간초과
+=================================================
+
+Size가 정해진 (n - k) Deque을 준비
+pop 가능한 횟수 제한(k)
+
+왼쪽부터 진행하면서 top보다 크고, k가 남아 있다면 pop() 
+if(deque.empty() or top보다 작거나 같으면) push
+
+1. if empty, push
+2. if top() > temp, push
+3. while top() <= temp && k > 0, pop(); push
+4. if top() <= temp, but k == 0, push
+
+--->
+	if(empty()) push
+	else{
+		while(!empty && top < temp && k) pop, k--
+				*top <= temp가 아니라 <, 같을때도 그냥 넣어야함
+		push
+	}
