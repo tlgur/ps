@@ -1,0 +1,10 @@
+1967의 트리와 비슷하게 구성하면 될듯>?
+
+Root = given
+vector 50개 배열 arr
+arr[n] - > n은 부모 node번호의 해쉬값
+
+for문 돌리면서 arr구성, if parent = -1, update Root
+
+0부터 재귀적으로 진입, if child has no child, cnt++
+	**if child_node == deleted_num, handle as no child   -> 얘만 유일한 자식일경우도 고려해야함

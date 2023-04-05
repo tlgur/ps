@@ -1,0 +1,56 @@
+Need : 노드간 거리 중 가장 큰 값
+
+dp[n][m] = n번쨰 노드에서 m으로 가는 비용
+
+BFS - level 간 간격
+
+
+func(n, m){
+if(dp[n][m] != 0) return dp[n][m];
+else if(n is (child | parent) of m) dp[n][m] = dp[m][n] = line[smaller][bigger]
+else 
+	func(n, m
+}
+
+---> 안됨 최대 노드 개수 10,000 배열 사이즈 1억
+
+===============================
+
+양 끝 노드는 무조건 leaf 노드
+
+* 주어진 트리가 이진 트리라는 보장 없음
+
+부모노드마다 자신이 root인 서브 트리에서 최대값을 저장하면 될거같은데
+
+서브트리마다 최대값, 그 다음 최대값 두개를 구해서
+
+1. 서브트리 parent(root) node의 상위 path로 가는 line에 최대값 만큼 더해줌
+2. 최대값 + 다음 최대값 을 most값이랑 비교, most 갱신
+
+순회를 어떻게하냐는 건데..
+-> 루트에서부터 재귀로 부르는 방식, 안됨.
+-> edge를 다 받고 뒤에서 부터 역순으로 순회,
+	edge[2][10001]
+	row 두줄은 첫번쨰값, 두번째 값 저장용
+	col은 노드 해쉬값
+
+	func(int p, int c, int w){
+		int child_weigth = edge[0][c] -> 자식 노드의 하위 edge중 최대 weight(if leaf, 0)
+		int temp = w + child_weight -> 하위 노드중 최대 weight와 선택된 edge를 골랐을때 비용
+		if(edge[0][p] < temp) edge[0][p] = temp;
+		else if(edge[1][p] < temp) edge[1][p] = temp;
+	}
+
+	max_among( edge[0][1 ~ n] + edge[1][1 ~ n])
+
+**NODE 번호가 normal하지 않고 랜덤하게 주어질 수 있음.
+
+edge를 받고 Root(1) 에서부터 재귀로 들어가야 함
+1. vector 10001개 배열 준비, 배열 인덱스 = parent node id의 hash값
+	vector에 자식번호 + 부모-자식 가중치 삽입
+2. 1부터 자신의 자식 vector 재귀적으로 호출
+func(cur) returns max_among( each chils, func(child) + child-parent.weight), if no child func(cur) = 0
+
+3. 루트 노드를 거치지 않고 지름을 형성하는 경우가 있기 떄문에 매 부모 마다 first값과 second값의 합으로 most 전역변수 갱신.
+4. 탐색이 끝나고 루트 노드의 최대값으로 most 갱신
+
