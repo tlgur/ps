@@ -1,0 +1,28 @@
+노드 개수 2000개라 아슬아슬하게 2차원 배열로 깔아도 될듯
+
+1. 음의 가중치 없고
+2. 특정 노드에서 특정 노드까지
+-> 다익스트라
+
+=> 시간초과 (아무래도 2000 * 2000이랑 50000이랑 차이가 너무 심해서 나는듯)
+	엣지 선언 다시
+
+g - h or h = g는 결정
+1. s to g
+2. s to h
+
+min(g, h) -==> 중간 도착지점
+max(g, h) -==> 중간 출발지점
+
+s - 중간 도착지점 - 중간 출발지점 - x
+
+if
+	s to x == s to min(g, h) + g-h + max(g, h) to x
+		==> x
+
+
+1. Calculate(Dijkstra) s to All
+2. set min(g, h) , max(g, h)
+3. Calculate(Dijkstra) max(g, h) to All
+4. for x in list
+	: check(s to x(Given at 1)  == s to min(g, h)(Given at 1) + g-h(constant) + max(g, h) to x(Given at 3)

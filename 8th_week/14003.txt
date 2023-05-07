@@ -1,0 +1,40 @@
+로직은 14002와 동일
+다만, LIS를 찾는 방법을 for문 순회에서 upper_bound(나보다 크거나 같은 애들중 가장 작은 값)으로 바꿈
+
+LIS 배열을 만들고
+
+arr 순회
+	if( LIS 가장 뒤에 있는 애보다 arr[i]가 크면 push_back(arr[i]))
+	else{
+		target_index = find_upper_bound(arr[i])
+		target_index = arr[i];
+		ex)
+			LIS : 10 20 40 60
+			arr[i] = 30
+			LIS : 10 20 30 60
+			arr[i] = 50
+			LIS : 10 20 30 50
+	}
+
+upper_bound
+
+target = arr[i]
+init_left = 0;
+init_right = LIS.size() - 1;
+check(x) : target <= x true, target > x false
+check(init_left) = false ( LIS 제일 앞에 INT_MIN 넣어 놓기)
+check(init_right) = true
+
+dp에 {배열 값, 배열 인덱스} 같이 넣음
+if(dp.back().first < arr[i]){
+	from[i] = dp.back().second;
+	dp.push_back({arr[i], i});
+}else{
+	index = upper_bound(arr[i]);
+	from[i] = dp[index - 1].second;
+	dp[index] = {arr[i], i};
+}
+
+
+stack 만들어서 dp.back().second부터 시작해서 from 타고 들어가면서 넣고
+뽑으면서 출력
